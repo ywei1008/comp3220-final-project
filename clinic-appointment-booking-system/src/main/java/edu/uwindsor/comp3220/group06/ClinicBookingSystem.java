@@ -1,5 +1,5 @@
 package edu.uwindsor.comp3220.group06;
- 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,9 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
+
 public class ClinicBookingSystem extends Application {
+
 
     // In-memory data store for submitted profiles
     private final List<Patient> patientDatabase = new ArrayList<>();
@@ -27,15 +29,13 @@ public class ClinicBookingSystem extends Application {
         BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
 
         VBox btnBox = new VBox(10);
+        btnBox.setAlignment(Pos.CENTER);
         Button newPatientBtn = new Button("Add new patient");   // our 2 button functions
         Button viewPatientBtn = new Button("View patient records");
         btnBox.getChildren().addAll(newPatientBtn, viewPatientBtn);
-        btnBox.setAlignment(Pos.CENTER);
         bp.setCenter(btnBox);     // adding to center of screen
 
-        //action listeners for both buttons
         newPatientBtn.setOnAction(e -> addPatientButtonClicked());
-        viewPatientBtn.setOnAction(e -> viewPatientButtonClicked());
 
         Scene scene = new Scene(bp, 450, 200);
         stage.setScene(scene);
@@ -49,7 +49,7 @@ public class ClinicBookingSystem extends Application {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.TOP_LEFT);
 
-        // Form labels and text inputs
+        // Form labels and text inputs - one on top of the other
         Label nameLabel = new Label("Name (First and Last name):");
         TextField nameField = new TextField();
 
@@ -71,9 +71,11 @@ public class ClinicBookingSystem extends Application {
         Label recordsLabel = new Label("Enter a list of health records, separated by commas:");
         TextField recordsField = new TextField();
 
+        
+        //"prompt text" appears inline in the text field to give the user a hint of what to enter
         recordsField.setPromptText("diabetes, cholesterol, asthma");
 
-        // Action button
+        // Action button will be invoked using the setOnAction method, which will handle the click event
         Button submitButton = new Button("Create Patient Profile");
 
         // Status label for quick user feedback, once they have created the new patient's profile
@@ -81,7 +83,10 @@ public class ClinicBookingSystem extends Application {
 
         // Handle button click
         submitButton.setOnAction(event -> {
+
+            //first, get the medical records field 
             String rawRecords = recordsField.getText().trim();
+            //create a list to hold the individual records
             List<String> recordList = new ArrayList<>();
 
             //go through the list of health records to get each individual record and add it to the list 
@@ -96,6 +101,7 @@ public class ClinicBookingSystem extends Application {
             }
 
             // Create and store the patient profile from all the text boxes
+            //order of parameters must match the order of the constructor in the Patient class
             Patient newPatient = new Patient(
                 nameField.getText().trim(),
                 dobField.getText().trim(),
@@ -106,7 +112,7 @@ public class ClinicBookingSystem extends Application {
                 recordList
             );
 
-            //our patient database is a list of patient objects of type ArrayList
+            //our patient "database" is a list of patient objects of type ArrayList
             patientDatabase.add(newPatient);
 
             // Print confirmation to the console
@@ -147,57 +153,11 @@ public class ClinicBookingSystem extends Application {
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
 
+        
         Stage addPatientWin = new Stage();
         addPatientWin.setScene(new Scene(scrollPane, 480, 580));
         addPatientWin.setTitle("New Patient");
         addPatientWin.show();
-    }
-
-    // method invoked after View patient records button is clicked
-    public void viewPatientButtonClicked() {
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-
-        Label prompt = new Label("Enter health card number: ");
-        TextField healthcardTF = new TextField();
-        Button searchBtn = new Button("Search records");
-
-        layout.getChildren().addAll(prompt, healthcardTF, searchBtn); 
-
-        Stage viewRecordWin = new Stage();
-        viewRecordWin.setScene(new Scene(layout, 350, 200));
-        viewRecordWin.setTitle("View Patient Records");
-        viewRecordWin.show();
-
-        searchBtn.setOnAction(e -> {
-            Patient targetPatient = null;  // to store target patient after they're found in records
-            String healthID = healthcardTF.getText().trim();
-
-            for (Patient pat : patientDatabase) {
-                if (healthID.equals(pat.getHealthCardID())) {
-                    targetPatient = pat;
-                    break;
-                }
-            }
-
-            if (targetPatient == null) {    // if patient isn't found
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setContentText("No patient found with this health card number");
-                alert.showAndWait();
-            } else {                        // if patient is found, new window
-                VBox profileLayout = new VBox();
-                profileLayout.setPadding(new Insets(20));
-                Label profileLbl = new Label(targetPatient.toString());
-
-                profileLayout.getChildren().addAll(profileLbl);
-
-                Stage foundRecordWin = new Stage();
-                foundRecordWin.setScene(new Scene(profileLayout, 350, 350));
-                foundRecordWin.setTitle("Found Patient Records");
-                foundRecordWin.show();
-            }
-        });
     }
 
     public static void main(String[] args) {

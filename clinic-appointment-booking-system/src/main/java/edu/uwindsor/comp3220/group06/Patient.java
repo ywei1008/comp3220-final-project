@@ -2,6 +2,8 @@ package edu.uwindsor.comp3220.group06;
 
 import java.util.List;
 
+
+//patient class to store patient information
 public class Patient {
 	private String name;
 	private String DOB;
@@ -11,6 +13,7 @@ public class Patient {
 	private String email;
 	private List<String> healthRecord;
 
+	//constructor
 	public Patient(String name,
 				   String DOB,
 				   String healthCardID,

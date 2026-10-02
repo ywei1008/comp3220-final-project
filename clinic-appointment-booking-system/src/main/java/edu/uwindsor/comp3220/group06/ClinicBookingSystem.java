@@ -71,7 +71,6 @@ public class ClinicBookingSystem extends Application {
         Label recordsLabel = new Label("Enter a list of health records, separated by commas:");
         TextField recordsField = new TextField();
 
-
         recordsField.setPromptText("diabetes, cholesterol, asthma");
 
         // Action button
@@ -181,22 +180,22 @@ public class ClinicBookingSystem extends Application {
                 }
             }
 
-            if (targetPatient == null) {
+            if (targetPatient == null) {    // if patient isn't found
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setContentText("No patient found with this health card number");
                 alert.showAndWait();
-            } else {
+            } else {                        // if patient is found, new window
                 VBox profileLayout = new VBox();
+                profileLayout.setPadding(new Insets(20));
                 Label profileLbl = new Label(targetPatient.toString());
 
                 profileLayout.getChildren().addAll(profileLbl);
 
                 Stage foundRecordWin = new Stage();
-                foundRecordWin.setScene(new Scene(profileLayout, 350, 400));
+                foundRecordWin.setScene(new Scene(profileLayout, 350, 350));
                 foundRecordWin.setTitle("Found Patient Records");
                 foundRecordWin.show();
-
             }
         });
     }

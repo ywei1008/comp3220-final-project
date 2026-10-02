@@ -2,7 +2,6 @@ package edu.uwindsor.comp3220.group06;
 
 import java.util.List;
 
-
 public class Patient {
 	private String name;
 	private String DOB;
@@ -12,8 +11,6 @@ public class Patient {
 	private String email;
 	private List<String> healthRecord;
 
-	
-	
 	public Patient(String name,
 				   String DOB,
 				   String healthCardID,
@@ -22,19 +19,16 @@ public class Patient {
 				   String email,
 				   List<String> healthRecord) {
 		
-		
 		this.name = name;
 		this.DOB = DOB;
 		this.healthCardID = healthCardID;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.email = email;
-		this.healthRecord = healthRecord;
-		
-		
+		this.healthRecord = healthRecord;	
 	}
+
 	//Getters
-	
 	public String getName(){
 		return name;
 	}
@@ -54,15 +48,11 @@ public class Patient {
 		return address;
 	}
 	
-	
 	public List<String> getHealthRecord(){
 		return healthRecord;
 	}
 	
-	
 	//Setters
-	
-	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -90,8 +80,6 @@ public class Patient {
 		this.healthRecord = healthRecord;
 	}
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Patient Information:"
@@ -101,8 +89,6 @@ public class Patient {
 				"\nPhone #: " + phoneNumber + 
 				"\nAddress: " + address + "\nEmail: " + email;
 	}
-	
-	
 }
 		
 	

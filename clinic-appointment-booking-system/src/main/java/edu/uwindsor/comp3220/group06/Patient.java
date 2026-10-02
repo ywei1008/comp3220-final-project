@@ -4,26 +4,28 @@ import java.util.List;
 
 
 public class Patient {
-	private String healthCardID;
 	private String name;
 	private String DOB;
+	private String healthCardID;
 	private String phoneNumber;
 	private String address;
 	private String email;
 	private List<String> healthRecord;
 
 	
-	public Patient(String healthCardID,
-				   String name,
+	
+	public Patient(String name,
 				   String DOB,
+				   String healthCardID,
 			       String phoneNumber,
 				   String address,
 				   String email,
 				   List<String> healthRecord) {
 		
-		this.healthCardID = healthCardID;
+		
 		this.name = name;
 		this.DOB = DOB;
+		this.healthCardID = healthCardID;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.email = email;
@@ -32,15 +34,17 @@ public class Patient {
 		
 	}
 	//Getters
-	public String getHealthCardID(){
-		return healthCardID;
-	}
+	
 	public String getName(){
 		return name;
 	}
 	
 	public String getDOB(){
 		return DOB;
+	}
+	
+	public String getHealthCardID(){
+		return healthCardID;
 	}
 	
 	public String getPhoneNumber(){
@@ -57,9 +61,7 @@ public class Patient {
 	
 	
 	//Setters
-	public void setHealthCardID(String healthCardID) {
-		this.healthCardID = healthCardID;
-	}
+	
 	
 	public void setName(String name) {
 		this.name = name;
@@ -67,6 +69,10 @@ public class Patient {
 	
 	public void setDOB(String DOB) {
 		this.DOB = DOB;
+	}
+	
+	public void setHealthCardID(String healthCardID) {
+		this.healthCardID = healthCardID;
 	}
 	
 	public void setPhoneNumber(String phoneNumber) {
@@ -88,8 +94,8 @@ public class Patient {
 	
 	@Override
 	public String toString() {
-		return "Patient Information: | Name: " + name + " | HealthCardID: " + healthCardID + " | DOB: " +
-				DOB + " | Phone #: " + phoneNumber + " | Address: " + address + " | Email: " + email;
+		return "Patient Information: | Name: " + name + " | DOB: " +
+				DOB + " | HealthCardID: " + healthCardID  + " | Phone #: " + phoneNumber + " | Address: " + address + " | Email: " + email;
 	}
 	
 	

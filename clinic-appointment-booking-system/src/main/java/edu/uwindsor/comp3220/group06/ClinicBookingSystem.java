@@ -111,10 +111,12 @@ public class ClinicBookingSystem extends Application {
             // Create and store the patient profile from all the text boxes
             Patient newPatient = new Patient(
                 nameField.getText().trim(),
-                phoneField.getText().trim(),
-                healthCardField.getText().trim(),
-                addressField.getText().trim(),
                 dobField.getText().trim(),
+                healthCardField.getText().trim(),
+                phoneField.getText().trim(),
+                addressField.getText().trim(),
+                emailField.getText().trim(),
+                
                 recordList
             );
 
@@ -133,10 +135,11 @@ public class ClinicBookingSystem extends Application {
 
             // Clear the form fields
             nameField.clear();
-            phoneField.clear();
-            healthCardField.clear();
-            addressField.clear();
             dobField.clear();
+            healthCardField.clear();
+            phoneField.clear();
+            addressField.clear();
+            emailField.clear();
             recordsField.clear();
             statusLabel.setText("Last saved: " + newPatient.fullName() + " (" + patientDatabase.size() + " total patients)");
         });
@@ -144,10 +147,11 @@ public class ClinicBookingSystem extends Application {
         // Assemble the UI controls into the layout
         layout.getChildren().addAll(
             nameLabel, nameField,
-            phoneLabel, phoneField,
-            healthCardLabel, healthCardField,
-            addressLabel, addressField,
             dobLabel, dobField,
+            healthCardLabel, healthCardField,
+            phoneLabel, phoneField,         
+            addressLabel, addressField,
+            emailLabel, emailField,
             recordsLabel, recordsField,
             submitButton,
             statusLabel

@@ -11,24 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
-
-// import javafx.scene.control.Alert;
-// import javafx.scene.control.Button;
-// import javafx.scene.control.Label;
-// import javafx.scene.control.ScrollPane;
-// import javafx.scene.control.TextField;
-
 public class ClinicBookingSystem extends Application {
-
-    // Simple data structure to define what information is to be stored for each patient profile (CAN BE CHANGED)
-    // public record Patient(
-    //     String fullName,
-    //     String phoneNumber,
-    //     String healthCard,
-    //     String address,
-    //     String dob,
-    //     List<String> healthRecords
-    // ) {}
 
     // In-memory data store for submitted profiles
     private final List<Patient> patientDatabase = new ArrayList<>();
@@ -174,9 +157,18 @@ public class ClinicBookingSystem extends Application {
     // method invoked after View patient records button is clicked
     public void viewPatientButtonClicked() {
         VBox layout = new VBox(20);
+        layout.setPadding(new Insets(20));
+
         Label prompt = new Label("Enter health card number: ");
         TextField healthcardTF = new TextField();
         Button searchBtn = new Button("Search records");
+
+        layout.getChildren().addAll(prompt, healthcardTF, searchBtn); 
+
+        Stage viewRecordWin = new Stage();
+        viewRecordWin.setScene(new Scene(layout, 350, 200));
+        viewRecordWin.setTitle("View Patient Records");
+        viewRecordWin.show();
 
         searchBtn.setOnAction(e -> {
             Patient targetPatient = null;  // to store target patient after they're found in records
@@ -188,12 +180,25 @@ public class ClinicBookingSystem extends Application {
                     break;
                 }
             }
-        });
 
-        Stage viewRecordWin = new Stage();
-        viewRecordWin.setScene(new Scene(layout, 300, 100));
-        viewRecordWin.setTitle("View Patient Records");
-        viewRecordWin.show();
+            if (targetPatient == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setContentText("No patient found with this health card number");
+                alert.showAndWait();
+            } else {
+                VBox profileLayout = new VBox();
+                Label profileLbl = new Label(targetPatient.toString());
+
+                profileLayout.getChildren().addAll(profileLbl);
+
+                Stage foundRecordWin = new Stage();
+                foundRecordWin.setScene(new Scene(profileLayout, 350, 400));
+                foundRecordWin.setTitle("Found Patient Records");
+                foundRecordWin.show();
+
+            }
+        });
     }
 
     public static void main(String[] args) {

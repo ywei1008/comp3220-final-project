@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
+
+
+// import javafx.scene.control.Alert;
+// import javafx.scene.control.Button;
+// import javafx.scene.control.Label;
+// import javafx.scene.control.ScrollPane;
+// import javafx.scene.control.TextField;
 
 public class ClinicBookingSystem extends Application {
 
@@ -32,6 +35,31 @@ public class ClinicBookingSystem extends Application {
 
     @Override
     public void start(Stage stage) {
+
+        BorderPane bp = new BorderPane();   // creating first window
+        Label title = new Label("Welcome to Your Clinic Booking Management System");
+        title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
+        bp.setTop(title);   // adding title to top of borderpane
+        BorderPane.setAlignment(title, Pos.CENTER);
+        BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
+
+        VBox btnBox = new VBox(10);
+        btnBox.setAlignment(Pos.CENTER);
+        Button newPatientBtn = new Button("Add new patient");   // our 2 button functions
+        Button viewPatientBtn = new Button("View patient records");
+        btnBox.getChildren().addAll(newPatientBtn, viewPatientBtn);
+        bp.setCenter(btnBox);     // adding to center of screen
+
+        newPatientBtn.setOnAction(e -> addPatientButtonClicked());
+
+        Scene scene = new Scene(bp, 450, 200);
+        stage.setScene(scene);
+        stage.setTitle("Clinic Booking System - Patient Registration");
+        stage.show();
+    }
+
+    // method invoked after clicking addPatientBtn
+    public void addPatientButtonClicked() {
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.TOP_LEFT);
@@ -127,10 +155,10 @@ public class ClinicBookingSystem extends Application {
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
 
-        Scene scene = new Scene(scrollPane, 480, 580);
-        stage.setScene(scene);
-        stage.setTitle("Clinic Booking System - Patient Registration");
-        stage.show();
+        Stage addPatientWin = new Stage();
+        addPatientWin.setScene(new Scene(scrollPane, 480, 580));
+        addPatientWin.setTitle("New Patient");
+        addPatientWin.show();
     }
 
     public static void main(String[] args) {

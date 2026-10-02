@@ -27,7 +27,7 @@ public class Patient {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.email = email;
-		this.healthRecord = Null;
+		this.healthRecord = healthRecord;
 		
 		
 	}
@@ -76,11 +76,12 @@ public class Patient {
 		this.address = address;
 	}
 	
-	public void setEmail() {
-		return email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public void setHealthRecord() {
-		return healthRecord;
+
+	public void setHealthRecord(List<String> healthRecord) {
+		this.healthRecord = healthRecord;
 	}
 	
 	

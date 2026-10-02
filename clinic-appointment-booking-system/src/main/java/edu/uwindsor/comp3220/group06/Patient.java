@@ -33,51 +33,8 @@ public class Patient {
 		return name;
 	}
 	
-	public String getDOB(){
-		return DOB;
-	}
-	
 	public String getHealthCardID(){
 		return healthCardID;
-	}
-	
-	public String getPhoneNumber(){
-		return phoneNumber;
-	}
-	public String getAddress(){
-		return address;
-	}
-	
-	public List<String> getHealthRecord(){
-		return healthRecord;
-	}
-	
-	//Setters
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setDOB(String DOB) {
-		this.DOB = DOB;
-	}
-	
-	public void setHealthCardID(String healthCardID) {
-		this.healthCardID = healthCardID;
-	}
-	
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setHealthRecord(List<String> healthRecord) {
-		this.healthRecord = healthRecord;
 	}
 	
 	@Override

@@ -21,14 +21,14 @@ import javafx.stage.Stage;
 public class ClinicBookingSystem extends Application {
 
     // Simple data structure to define what information is to be stored for each patient profile (CAN BE CHANGED)
-    public record Patient(
-        String fullName,
-        String phoneNumber,
-        String healthCard,
-        String address,
-        String dob,
-        List<String> healthRecords
-    ) {}
+    // public record Patient(
+    //     String fullName,
+    //     String phoneNumber,
+    //     String healthCard,
+    //     String address,
+    //     String dob,
+    //     List<String> healthRecords
+    // ) {}
 
     // In-memory data store for submitted profiles
     private final List<Patient> patientDatabase = new ArrayList<>();
@@ -44,13 +44,15 @@ public class ClinicBookingSystem extends Application {
         BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
 
         VBox btnBox = new VBox(10);
-        btnBox.setAlignment(Pos.CENTER);
         Button newPatientBtn = new Button("Add new patient");   // our 2 button functions
         Button viewPatientBtn = new Button("View patient records");
         btnBox.getChildren().addAll(newPatientBtn, viewPatientBtn);
+        btnBox.setAlignment(Pos.CENTER);
         bp.setCenter(btnBox);     // adding to center of screen
 
+        //action listeners for both buttons
         newPatientBtn.setOnAction(e -> addPatientButtonClicked());
+        viewPatientBtn.setOnAction(e -> viewPatientButtonClicked());
 
         Scene scene = new Scene(bp, 450, 200);
         stage.setScene(scene);
@@ -159,6 +161,31 @@ public class ClinicBookingSystem extends Application {
         addPatientWin.setScene(new Scene(scrollPane, 480, 580));
         addPatientWin.setTitle("New Patient");
         addPatientWin.show();
+    }
+
+    // method invoked after View patient records button is clicked
+    public void viewPatientButtonClicked() {
+        VBox layout = new VBox(20);
+        Label prompt = new Label("Enter health card number: ");
+        TextField healthcardTF = new TextField();
+        Button searchBtn = new Button("Search records");
+
+        searchBtn.setOnAction(e -> {
+            Patient targetPatient = null;  // to store target patient after they're found in records
+            String healthID = healthcardTF.getText().trim();
+
+            for (Patient pat : patientDatabase) {
+                if (healthID.equals(pat.getHealthCardID())) {
+                    targetPatient = pat;
+                    break;
+                }
+            }
+        });
+
+        Stage viewRecordWin = new Stage();
+        viewRecordWin.setScene(new Scene(layout, 300, 100));
+        viewRecordWin.setTitle("View Patient Records");
+        viewRecordWin.show();
     }
 
     public static void main(String[] args) {

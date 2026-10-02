@@ -73,6 +73,9 @@ public class ClinicBookingSystem extends Application {
         Label phoneLabel = new Label("Phone Number:");
         TextField phoneField = new TextField();
 
+        Label emailLabel = new Label("Email:");
+        TextField emailField = new TextField();
+
         Label healthCardLabel = new Label("Health Card:");
         TextField healthCardField = new TextField();
 
@@ -84,6 +87,8 @@ public class ClinicBookingSystem extends Application {
 
         Label recordsLabel = new Label("Enter a list of health records, separated by commas:");
         TextField recordsField = new TextField();
+
+
         recordsField.setPromptText("diabetes, cholesterol, asthma");
 
         // Action button
@@ -116,7 +121,6 @@ public class ClinicBookingSystem extends Application {
                 phoneField.getText().trim(),
                 addressField.getText().trim(),
                 emailField.getText().trim(),
-                
                 recordList
             );
 
@@ -130,7 +134,7 @@ public class ClinicBookingSystem extends Application {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText("Profile Created");
-            alert.setContentText("Patient profile for " + newPatient.fullName() + " was saved successfully.");
+            alert.setContentText("Patient profile for " + newPatient.getName() + " was saved successfully.");
             alert.showAndWait();
 
             // Clear the form fields
@@ -141,7 +145,7 @@ public class ClinicBookingSystem extends Application {
             addressField.clear();
             emailField.clear();
             recordsField.clear();
-            statusLabel.setText("Last saved: " + newPatient.fullName() + " (" + patientDatabase.size() + " total patients)");
+            statusLabel.setText("Last saved: " + newPatient.getName() + " (" + patientDatabase.size() + " total patients)");
         });
 
         // Assemble the UI controls into the layout

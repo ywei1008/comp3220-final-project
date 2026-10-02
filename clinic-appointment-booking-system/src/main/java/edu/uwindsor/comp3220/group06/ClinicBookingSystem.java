@@ -36,6 +36,7 @@ public class ClinicBookingSystem extends Application {
         bp.setCenter(btnBox);     // adding to center of screen
 
         newPatientBtn.setOnAction(e -> addPatientButtonClicked());
+        viewPatientBtn.setOnAction(e -> viewPatientButtonClicked());
 
         Scene scene = new Scene(bp, 450, 200);
         stage.setScene(scene);
@@ -71,7 +72,6 @@ public class ClinicBookingSystem extends Application {
         Label recordsLabel = new Label("Enter a list of health records, separated by commas:");
         TextField recordsField = new TextField();
 
-        
         //"prompt text" appears inline in the text field to give the user a hint of what to enter
         recordsField.setPromptText("diabetes, cholesterol, asthma");
 
@@ -84,12 +84,12 @@ public class ClinicBookingSystem extends Application {
         // Handle button click
         submitButton.setOnAction(event -> {
 
-            //first, get the medical records field 
+            //first, get the medical records field
             String rawRecords = recordsField.getText().trim();
             //create a list to hold the individual records
             List<String> recordList = new ArrayList<>();
 
-            //go through the list of health records to get each individual record and add it to the list 
+            //go through the list of health records to get each individual record and add it to the list
             if (!rawRecords.isEmpty()) {
                 String[] splitRecords = rawRecords.split(",");
                 for (String record : splitRecords) {
@@ -141,7 +141,7 @@ public class ClinicBookingSystem extends Application {
             nameLabel, nameField,
             dobLabel, dobField,
             healthCardLabel, healthCardField,
-            phoneLabel, phoneField,         
+            phoneLabel, phoneField,
             addressLabel, addressField,
             emailLabel, emailField,
             recordsLabel, recordsField,
@@ -153,11 +153,57 @@ public class ClinicBookingSystem extends Application {
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
 
-        
         Stage addPatientWin = new Stage();
         addPatientWin.setScene(new Scene(scrollPane, 480, 580));
         addPatientWin.setTitle("New Patient");
         addPatientWin.show();
+    }
+
+    // method invoked after View patient records button is clicked
+    public void viewPatientButtonClicked() {
+        VBox layout = new VBox(20);
+        layout.setPadding(new Insets(20));
+
+        Label prompt = new Label("Enter health card number: ");
+        TextField healthcardTF = new TextField();
+        Button searchBtn = new Button("Search records");
+
+        layout.getChildren().addAll(prompt, healthcardTF, searchBtn);
+
+        Stage viewRecordWin = new Stage();
+        viewRecordWin.setScene(new Scene(layout, 350, 200));
+        viewRecordWin.setTitle("View Patient Records");
+        viewRecordWin.show();
+
+        searchBtn.setOnAction(e -> {
+            Patient targetPatient = null;  // to store target patient after they're found in records
+            String healthID = healthcardTF.getText().trim();
+
+            for (Patient pat : patientDatabase) {
+                if (healthID.equals(pat.getHealthCardID())) {
+                    targetPatient = pat;
+                    break;
+                }
+            }
+
+            if (targetPatient == null) {    // if patient isn't found
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setContentText("No patient found with this health card number");
+                alert.showAndWait();
+            } else {                        // if patient is found, new window
+                VBox profileLayout = new VBox();
+                profileLayout.setPadding(new Insets(20));
+                Label profileLbl = new Label(targetPatient.toString());
+
+                profileLayout.getChildren().addAll(profileLbl);
+
+                Stage foundRecordWin = new Stage();
+                foundRecordWin.setScene(new Scene(profileLayout, 350, 350));
+                foundRecordWin.setTitle("Found Patient Records");
+                foundRecordWin.show();
+            }
+        });
     }
 
     public static void main(String[] args) {
